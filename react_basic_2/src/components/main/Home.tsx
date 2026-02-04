@@ -2,6 +2,8 @@ import {useState, useEffect} from "react";
 import apiClient from "../../commons/http-commons";
 import {Link} from "react-router";
 
+// 공통기반
+// list에 등록된 데이터
 interface Food{
     fno:number,
     name:string,
@@ -29,10 +31,10 @@ function Home(){
         }
         fetchList();
     }, [curpage]);
-    const html=foodData?.list.map((food:Food)=> {
+    const html=foodData?.list.map((food:Food,index:number)=> {
 
         return(
-            <div className="col-md-3">
+            <div className="col-md-3" key={index}>
                 <div className="thumbnail">
                     <Link to={`/food/detail/${food.fno}`}>
                         <img src={food.poster} alt="Lights" style={{"width":"250px","height":"150px"}} />

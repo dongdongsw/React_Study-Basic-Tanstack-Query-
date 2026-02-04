@@ -6,6 +6,8 @@ import FoodDetail from "./components/food/FoodDetail";
 import {useNavigate, useParams} from "react-router-dom";
 import apiClient from "./commons/http-commons";
 import RecipeList from "./components/recipe/RecipeList";
+import RecipeDetail from "./components/recipe/RecipeDetail";
+import FoodFind from "./components/food/FoodFind";
 /*
   관리 = 출력화면을 찾는다
         Router
@@ -31,6 +33,8 @@ function App() {
             <Route path="/" element={<Home/>}/>
             <Route path="/food/detail/:fno" element={<FoodDetail/>}/>
             <Route path="/recipe/list" element={<RecipeList/>}/>
+            <Route path="/recipe/detail/:no" element={<RecipeDetail/>}/>
+            <Route path="/food/find" element={<FoodFind/>}/>
         </Routes>
       </Router>
   );
