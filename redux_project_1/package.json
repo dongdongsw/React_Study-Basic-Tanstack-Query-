@@ -22,7 +22,9 @@
     "redux-logger": "^3.0.6",
     "@reduxjs/toolkit": "^2.11.2",
     "express": "^5.2.1",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "cors": "^2.8.6",
+    "oracledb": "^6.10.0"
   },
   "scripts": {
     "start": "react-scripts start",

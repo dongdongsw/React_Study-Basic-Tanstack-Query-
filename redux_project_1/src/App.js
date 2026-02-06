@@ -60,6 +60,12 @@ import FoodList from './components/FoodList'
 import FoodDetail from "./components/FoodDetail";
 import RecipeList from "./components/RecipeList";
 import RecipeDetail from "./components/RecipeDetail";
+import BoardList from "./components/BoardList";
+import BoardInsert from "./components/BoardInsert";
+import BoardDetail from "./components/BoardDetail";
+import BoardUpdate from "./components/BoardUpdate";
+import BoardDelete from "./components/BoardDelete";
+import RecipeFind from "./components/RecipeFind";
 
 function App() {
   return (
@@ -70,6 +76,12 @@ function App() {
           <Route path={"/detail/:fno"} element={<FoodDetail />} />
           <Route path={"/recipe/list"} element={<RecipeList />} />
           <Route path={"/recipe/detail/:no"} element={<RecipeDetail />} />
+          <Route path={"/recipe/find"} element={<RecipeFind />} />
+          <Route path={"/board/list"} element={<BoardList />} />
+          <Route path={"/board/insert"} element={<BoardInsert />} />
+          <Route path={"/board/detail/:no"} element={<BoardDetail />} />
+          <Route path={"/board/update/:no"} element={<BoardUpdate />} />
+          <Route path={"/board/delete/:no"} element={<BoardDelete />} />
         </Routes>
       </Router>
     </Provider>
