@@ -214,7 +214,7 @@ function Header() {
                                             <a className="nav-link" href="archive.html">동영상검색</a>
                                         </li>
                                         <li className="nav-item">
-                                            <a className="nav-link" href="#">커뮤니티</a>
+                                            <a className="nav-link" href="/board/list">커뮤니티</a>
                                         </li>
                                     </ul>
                                 </div>

@@ -7,6 +7,10 @@ import Home from "./components/layout/Home";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import JejuAttractionList from "./components/Jeju/JejuAttractionList";
 import JejuAttractionDetail from "./components/Jeju/JejuAttractionDetail";
+import BoardList from "./components/board/BoardList";
+import BoardInsert from "./components/board/BoardInsert";
+import BoardDetail from "./components/board/BoardDetail";
+
 function App() {
   return (
       <Router>
@@ -15,6 +19,9 @@ function App() {
             <Route path="/" element={<Home />}/>
             <Route path="/jeju/attraction" element={<JejuAttractionList/>}/>
             <Route path="/jeju/detail/:contentid" element={<JejuAttractionDetail/>}/>
+            <Route path="/board/list" element={<BoardList/>}/>
+            <Route path="/board/insert" element={<BoardInsert/>}/>
+            <Route path="/board/detail/:no" element={<BoardDetail/>}/>
         </Routes>
         <Footer/>
       </Router>
