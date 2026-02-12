@@ -66,7 +66,7 @@ function BoardList() {
                             <tbody>
                                 <tr>
                                     <td>
-                                        <Link to={"/board/insert"} className={"btn-primary"}>새글</Link>
+                                        <Link to={"/board/insert"} className={"btn btn-primary"}>새글</Link>
                                     </td>
                                 </tr>
                             </tbody>

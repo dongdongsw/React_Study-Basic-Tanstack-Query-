@@ -3,6 +3,8 @@ import express  from 'express';
 import cors from "cors";
 import oracledb, {Connection} from 'oracledb';
 
+import request from "request";
+
 const app = express();
 app.use(cors({
     origin: "*",
@@ -125,3 +127,128 @@ app.get("/board/detail_node", async (req , res ) => {
         }
     }
 })
+
+app.get("/board/update_node", async (req , res ) => {
+    let conn;
+    const no = req.query.no
+    try {
+        conn = await getConnection();
+        const sql=`
+            SELECT no, name, TO_CHAR(content) as content, subject
+            FROM board_1
+            WHERE no = ${no}
+        `
+        const result = await conn.execute(sql);
+        res.json(result.rows?.[0])
+    }
+    catch (err){
+        console.log(err);
+    }finally {
+        if(conn){
+            await conn.close();
+        }
+    }
+})
+
+app.put("/board/update_ok_node", async (req , res ) => {
+    let conn;
+    const {no, name, subject, content, pwd} = req.body;
+    try {
+        conn = await getConnection();
+        const checkSql=`
+            SELECT COUNT(*) as res
+            FROM board_1
+            WHERE no = ${no} AND pwd=${pwd}
+        `
+        const check = await conn.execute(checkSql);
+        console.log(check)
+        console.log(check.rows?.[0])
+
+        const count = (check.rows as any[])[0].RES
+
+        if(count === 0){
+            console.log('비밀번호가 틀립니다' + count)
+            res.json({msg:'no'})
+            return
+        }
+
+        const updateSql = `
+            UPDATE board_1 SET 
+            name = '${name}', subject = '${subject}', content = '${content}'
+            WHERE no = ${no}
+        `
+        await conn.execute(updateSql, {}, {autoCommit:true});
+        res.json({msg:'yes'})
+
+    }
+    catch (err){
+        console.log(err);
+    }
+    finally {
+        if(conn){
+            await conn.close();
+        }
+    }
+})
+
+app.delete("/board/delete_node/:no/:pwd", async (req , res ) => {
+    let conn;
+    const no = req.params.no;
+    const pwd = req.params.pwd;
+    try {
+        conn = await getConnection();
+        const sql=`
+            SELECT COUNT(*) as res
+            FROM board_1
+            WHERE no = ${no} AND pwd='${pwd}'
+        `
+        const check = await conn.execute(sql);
+        const count = (check.rows as any[])[0].RES;
+
+        if(count === 0){
+            console.log('비밀번호가 틀립니다' + count)
+            res.json({msg:'no'})
+            return
+        }
+
+        const deleteSql = `
+           DELETE FROM board_1
+           WHERE no = ${no}
+        `
+        await conn.execute(deleteSql, {}, {autoCommit:true});
+        res.json({msg:'yes'})
+    }
+    catch (err){
+        console.log(err);
+    }
+    finally {
+        if(conn){
+            await conn.close();
+        }
+    }
+})
+
+// 뉴스 검색
+const client_id = 'OtKU74j2Bx_QN_K5YPck';
+const client_secret = 'eyn6LY7L0j';
+app.get('/news/find_node', function (req, res) {
+    const query = req.query.query as string;
+    if(!query)
+        return res.status(400).send({message:'검색어가 없습니다'});
+    const api_url = 'https://openapi.naver.com/v1/search/news.json?display=50&query=' + encodeURI(query); // JSON 결과
+
+    const options = {
+        url: api_url,
+        headers: {'X-Naver-Client-Id':client_id, 'X-Naver-Client-Secret': client_secret}
+    };
+    request.get(options, function (error:any, response:any, body:any) {
+        if (!error && response.statusCode == 200) {
+            res.writeHead(200, {'Content-Type': 'text/json;charset=utf-8'});
+            console.log(body);
+            res.end(body);
+        } else {
+            res.status(response.statusCode).end();
+            console.log('error = ' + response.statusCode);
+        }
+    });
+});

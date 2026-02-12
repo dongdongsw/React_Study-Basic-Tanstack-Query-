@@ -87,7 +87,7 @@ function BoardInsert(){
             </div>
             <section className="archive-area section_padding_80">
                 <div className="container">
-                    <div className="row">
+                    <div className="row"  style={{"width": "600px", "margin": "0px auto"}}>
                         <table className={"table"}>
                             <tbody>
                                 <tr>
@@ -117,7 +117,7 @@ function BoardInsert(){
                                 <tr>
                                     <td colSpan={2} className={"text-center"}>
                                         <button className={"btn-primary btn-sm"} onClick={insert}>작성</button>
-                                        <button className={"btn-warning btn-sm"} onClick={()=> nav(-1)}>취소</button>
+                                        <button className={"    btn-warning btn-sm"} onClick={()=> nav(-1)}>취소</button>
                                     </td>
                                 </tr>
                             </tbody>
