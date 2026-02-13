@@ -14,6 +14,7 @@ import BoardUpdate from "./components/board/BoardUpdate";
 import BoardDelete from "./components/board/BoardDelete";
 import YoutubeFind from "./components/youtube/YoutubeFind";
 import NewsFind from "./components/news/NewsFind";
+import ChatBot from "./components/chatbot/ChatBot";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             <Route path="/board/delete/:no" element={<BoardDelete/>}/>
             <Route path="/youtube/find" element={<YoutubeFind/>}/>
             <Route path="/news/find" element={<NewsFind/>}/>
+            <Route path="/chat/chatbot" element={<ChatBot/>}/>
         </Routes>
         <Footer/>
       </Router>
